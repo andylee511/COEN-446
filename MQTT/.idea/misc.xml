@@ -3,7 +3,8 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Users/lee/AndroidStudioProjects/MQTT/app/src/main/res/layout/activity_main.xml" value="0.10416666666666667" />
+        <entry key="..\:/Users/lee/AndroidStudioProjects/MQTT/app/src/main/res/layout/activity_connected.xml" value="0.2028985507246377" />
+        <entry key="..\:/Users/lee/AndroidStudioProjects/MQTT/app/src/main/res/layout/activity_main.xml" value="0.25" />
       </map>
     </option>
   </component>
