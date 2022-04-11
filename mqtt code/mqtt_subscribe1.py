@@ -1,8 +1,10 @@
 import paho.mqtt.client as mqtt
 import time
 
+
 def on_message(client, userdata, message):
     print("Received message: ", str(message.payload.decode("utf-8")))
+
 
 mqttBroker = "mqtt.eclipseprojects.io"
 client = mqtt.Client("Smartphone")
