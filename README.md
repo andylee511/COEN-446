@@ -17,5 +17,5 @@
 1. Turn on the Broker on HivwMQ web socket client and logini with username and password (https://websocketclient.hivemq.cloud/?username=andylee222&host=d34fba36553a4cf5b0a20358c0e6dc08.s2.eu.hivemq.cloud&port=8884)
 2. Run mqtt_thermalStat.py file with py mqtt_thermalStat.py in any environment (cmd, vscode) that can run Python.
 3. Run the MQTT mobile application on Emulator within Android Studio or on Android mobile phone.
-4. Run mqtt_smartLock.pywith command py mqtt_smartlock.py to generate simulated guests. 
+4. Run mqtt_smartLock.pywith command py mqtt_smartlock.py, input guest name, preferred temperature, and whether they are entering or leaving the house. 
 5. To stop simulation on python, press Ctrl + c in terminal to terminate the code.
