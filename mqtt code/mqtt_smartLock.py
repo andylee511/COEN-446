@@ -62,18 +62,27 @@ client.on_publish = on_publish
 
 # subscribe to all topics of encyclopedia by using the wildcard "#"
 # client.subscribe("my/test/#", qos=1)
+while True:
+    name = input("input name of guest: ")
+    temp = input("type in the preferred temperature of " + name + ": ")
+    status = input("type in if the guest is entering or leaving: ")
+
+    message = name + "," + temp + "," + status
+    client.publish("my/test/guest", payload=message, qos=1)
 
 # publish incoming or leaving guest, this can also be done in loops, etc.
-client.publish("my/test/guest", payload="John,30,entering", qos=1)
-time.sleep(5)
-client.publish("my/test/guest", payload="Lisa,30,entering", qos=1)
-time.sleep(5)
-client.publish("my/test/guest", payload="John,30,leaving", qos=1)
-time.sleep(5)
-client.publish("my/test/guest", payload="Lucas,20,entering", qos=1)
-time.sleep(5)
-client.publish("my/test/guest", payload="Mike,40,entering", qos=1)
+#client.publish("my/test/guest", payload="John,30,entering", qos=1)
+# time.sleep(5)
+#client.publish("my/test/guest", payload="Lisa,30,entering", qos=1)
+# time.sleep(5)
+#client.publish("my/test/guest", payload="John,30,leaving", qos=1)
+# time.sleep(5)
+#client.publish("my/test/guest", payload="Lucas,20,entering", qos=1)
+# time.sleep(5)
+#client.publish("my/test/guest", payload="Mike,40,entering", qos=1)
+
+# client.loop_forever()
+
 
 # loop_forever for simplicity, here you need to stop the loop manually
 # you can also use loop_start and loop_stop
-client.loop_forever()
