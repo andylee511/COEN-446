@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">MQTT</string>
+    <string name="CHANNEL_ID">MY NOTIFICATION</string>
 </resources>

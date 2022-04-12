@@ -1,7 +1,13 @@
 package com.example.mqtt;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.content.Context;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -31,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
     private String fin;
     private int i = 0;
     private boolean connected = false;
+    private int id = 0;
 
     //create an MQTT client
     final Mqtt5BlockingClient client = MqttClient.builder()
@@ -92,12 +99,17 @@ public class MainActivity extends AppCompatActivity {
                             .send();
 
 
+
                     //set a callback that is called when a message is received (using the async API style)
                     client.toAsync().publishes(ALL, publish -> {
                         Log.d("MainActivity", "Received message: " + publish.getTopic() + " -> " + UTF_8.decode(publish.getPayload().get()));
                         message = UTF_8.decode(publish.getPayload().get()).toString();
-
+                        String temp[] = message.split(",");
+                        String notify = temp[0] + " is " + temp[2] + " the house";
                         fin = String.valueOf(cal(message));
+
+                        notificationSender(notify, id++);
+
                         //disconnect the client after a message was received
                         // client.disconnect();
                         //Log.d("value", fin);
@@ -118,6 +130,33 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+    private void notificationSender(String passNotification, int notId){
+
+        Log.d("MainActivity","passed notification function");
+        NotificationManager notificationManager = getSystemService(NotificationManager.class);
+        if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.O) {
+
+
+            String id = "my notification";
+            CharSequence name = "my notification";
+            int importance = NotificationManager.IMPORTANCE_DEFAULT;
+            NotificationChannel mChannel = new NotificationChannel(id, name,importance);
+            mChannel.enableLights(true);
+            //NotificationManager notificationManager = getSystemService(NotificationManager.class);
+            notificationManager.createNotificationChannel(mChannel);
+        }
+
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(MainActivity.this, "my notification")
+                .setSmallIcon(R.drawable.ic_launcher_foreground)
+                .setContentTitle("New Notification")
+                .setContentText(passNotification)
+                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                .setAutoCancel(true);
+
+
+        NotificationManagerCompat managerCompat=NotificationManagerCompat.from(MainActivity.this);
+        managerCompat.notify(notId,builder.build());
+    }
     private int cal(String msg) {
         //temp string to store guests name
 
@@ -125,7 +164,8 @@ public class MainActivity extends AppCompatActivity {
         Log.d("MainActivity", msg);
         receive_msg = msg.split(",");
         Log.d("MainActivity", receive_msg[2]);
-       //should first check if the guest if leaving or entering the house
+
+        //should first check if the guest if leaving or entering the house
         if (receive_msg[2].equals("entering")) {
             //update guest name and preferred temperature
             guests.add(receive_msg[0]);
@@ -151,6 +191,7 @@ public class MainActivity extends AppCompatActivity {
             }else
                 desired_temp = getTemp();
         }
+
         return desired_temp;
     }
 
