@@ -1,7 +1,7 @@
 # COEN446-MQTT-project
 
 ## Description of files
-* file
+### File
 1. mqtt_smartLock.py: implements the smart lock simulator, to add information about geust's name and whether they are entering or leaving the house.
 2. mqtt_thermalStat.py: impleemnts the thermal stats that will adjust the indoor temperature according to the number of people exist inside the house given by the mobile application.
 3. MQTT android app: implements the applicaiton which receive the guest's name and preferred temperature, manage the number of people and calculates the preferred temperature the thermal stat should turned to.
